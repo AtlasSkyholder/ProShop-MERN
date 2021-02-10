@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+/* import PropTypes from 'prop-types'; */
 
 
 const Rating = ({ value, text, color }) => {
@@ -20,19 +20,23 @@ const Rating = ({ value, text, color }) => {
       <span>
         <i style={{color}} className={ value >= 5 ? 'fas fa-star' : value >= 4.5 ? 'fas fa-star-half-alt' : 'far fa-star' }></i>
       </span>
-      <scan>{text && text}</scan>
+      <span>{text && text}</span>
     </div>
   )
 }
 
 Rating.defaultProps = {
-  color: '#f8e825'
+  color: '#f8e825',
+  value: 0
 }
 
-Rating.propTypes = {
+/* Rating.propTypes = {
   value: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
   color: PropTypes.string,
-}
+} */
 
 export default Rating
+
+
+/* { [1, 2, 3, 4, 5].map(index => (          <i  style={{color}} className={ (value >= index) ? 'fas fa-star' : ((value >= (index - 0.5)) ? 'fas fa-star-half-alt' : 'far fa-star')}></i>        )) } */
