@@ -8,7 +8,7 @@ import {
   PRODUCT_DETAILS_FAIL 
 } from '../constants/productConstants';
 
-export const listProducts = () => async (dispath) => {
+export const listProducts = () => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST })
     
@@ -26,7 +26,7 @@ export const listProducts = () => async (dispath) => {
   }
 }
 
-export const listProductDetails = (id) => async (dispath) => {
+export const listProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST })
     

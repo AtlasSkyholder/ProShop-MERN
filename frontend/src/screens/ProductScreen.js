@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispacth, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap';
 import Rating from '../components/Rating';
 import Message from '../components/Message';
@@ -10,7 +10,7 @@ import { listProductDetails } from '../actions/productActions';
 const ProductScreen = ({ history, match }) => {
   const [ qty, setQty] = useState(1);
 
-  const dispatch = useDispacth();
+  const dispatch = useDispatch();
 
   const productDetails = useSelector(state => state.productDetails);
   const { loading, error, product } = productDetails;
