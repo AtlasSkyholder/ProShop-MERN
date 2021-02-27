@@ -23,6 +23,9 @@ const ProfileScreen = ({ location, history }) => {
   const userUpdateProfile = useSelector(state => state.userUpdateProfile);
   const { success } = userUpdateProfile;
 
+  const orderMyList = useSelector(state => state.orderMyList);
+  const { loading, error, user } = orderMyList;
+
   useEffect(() => {
     if(!userInfo) {
       history.push('/login');
