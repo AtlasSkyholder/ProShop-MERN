@@ -147,7 +147,7 @@ const ProductEditScreen = ({ match, history }) => {
             <Button type='submit' variant='primary'>
               Update
             </Button>
-          </Form.File>
+          </Form>
         )}
       </FormContainer>
     </>
