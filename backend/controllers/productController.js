@@ -5,7 +5,13 @@ import Product from '../models/productModel.js';
 // @route GET /api/products
 // @access Public
 const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({});
+  const keyword = req.query.keyword ? { //how to get the keyword from the request to be used in a search in the backend
+    name: {
+      $regex: req.query.keyword,  //this allows to query mondo for parts of a word like 'iph' for iphone
+      $options: 'i'               //this sets the option for case incensitive
+    }
+  } : {}
+  const products = await Product.find({ ...keyword });
 
   res.json(products);
 });
