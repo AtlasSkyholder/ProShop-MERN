@@ -14,12 +14,18 @@ import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants';
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState(1);
+  const [comment, setComment] = useState('');
 
   const dispatch = useDispatch();
 
   const productDetails = useSelector(state => state.productDetails);
   const { loading, error, product } = productDetails;
+
+  const userLogin = useSelector(state => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const productReviewCreate = useSelector(state => state.productReviewCreate);
+  const { success: successProductReview, error: errorProductReview } = productReviewCreate;
 
   useEffect(() => {
     dispatch(listProductDetails(match.params.id));
@@ -35,6 +41,7 @@ const ProductScreen = ({ history, match }) => {
         Go Back
       </Link>
       {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
+        <>
         <Row>
           <Col md={6}>
             <Image src={product.image} alt={product.name} fluid />
@@ -109,6 +116,23 @@ const ProductScreen = ({ history, match }) => {
             </Card>
           </Col>
         </Row>
+        <Row>
+          <Col md={6}>
+            <h2>Reviews</h2>
+            {product.reviews.length === 0 && <Message>No Reviews</Message>}
+            <ListGroup variant='flush'>
+              {product.reviews.map(review => (
+                <ListGroup.Item key={review._id}>
+                  <strong>{review.name}</strong>
+                  <Rating value={review.rating} />
+                  <p>{review.createdAt.substring(0, 10)}</p>
+                  <p>{review.comment}</p>
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+          </Col>
+        </Row>
+        </>
       )}
     </>
   )
