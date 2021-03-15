@@ -5,15 +5,20 @@ import Product from '../models/productModel.js';
 // @route GET /api/products
 // @access Public
 const getProducts = asyncHandler(async (req, res) => {
+  const pageSize = 2; //This is for Pagination, sets the number of products per page
+  const page = Number(req.query.pageNumber) || 1;
+
   const keyword = req.query.keyword ? { //how to get the keyword from the request to be used in a search in the backend
     name: {
       $regex: req.query.keyword,  //this allows to query mondo for parts of a word like 'iph' for iphone
       $options: 'i'               //this sets the option for case incensitive
     }
   } : {}
-  const products = await Product.find({ ...keyword });
 
-  res.json(products);
+  const count = await Product.countDocuments({ ...keyword });
+  const products = await Product.find({ ...keyword }).limit(pageSize).skip(pageSize * (page - 1));
+
+  res.json({ products, page, pages: Math.ceil(count / pageSize) });
 });
 
 // @desc Fetch single products
