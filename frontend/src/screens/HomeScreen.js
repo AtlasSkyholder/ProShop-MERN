@@ -10,7 +10,7 @@ import ProductCarousel from '../components/ProductCarousel';
 import Meta from '../components/Meta';
 import { listProducts } from '../actions/productActions';
 
-const HomeScreen = () => {
+const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword;
 
   const pageNumber = match.params.pageNumber || 1;
