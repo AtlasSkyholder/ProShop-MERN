@@ -34,6 +34,8 @@ const OrderScreen = ({ match, history }) => {
       return (Math.round(num * 100) / 100).toFixed(2);
     }
 
+    console.log(order)
+
     order.itemsPrice = addDecimals(
       order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
     );
@@ -48,7 +50,7 @@ const OrderScreen = ({ match, history }) => {
       const { data: clientId } = await axios.get('/api/config/paypal');
       const script = document.createElement('script');
       script.type = 'text/javascript';
-      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+      script.src = `https://api-m.sandbox.paypal.com/sdk/js?client-id=${clientId}`;
       script.async = true;
       script.onload = () => {
         setSdkReady(true);
@@ -67,7 +69,7 @@ const OrderScreen = ({ match, history }) => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, order, orderId, successPay, successDeliver, history, userInfo]);
+  }, [dispatch, order, orderId, successPay, successDeliver]);
 
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);
@@ -118,7 +120,7 @@ const OrderScreen = ({ match, history }) => {
                     <ListGroup.Item key={index}>
                       <Row>
                         <Col md={1}>
-                          <Image src={item.image} alt={item.name} fluid founded />
+                          <Image src={item.image} alt={item.name} fluid rounded />
                         </Col>
                         <Col>
                           <Link to={`/product/${item.product}`}>
@@ -174,7 +176,7 @@ const OrderScreen = ({ match, history }) => {
                     <Loader />
                   ) : (
                     <PayPalButton 
-                      ammount={order.totalPrice} 
+                      amount={order.totalPrice} 
                       onSuccess={successPaymentHandler} 
                     />
                   )}
